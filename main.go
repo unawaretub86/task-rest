@@ -12,7 +12,7 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/", handlers.Ping)
-	router.HandleFunc("/task", handlers.GetTask).Methods("GET")
+	router.HandleFunc("/tasks", handlers.GetTasks).Methods("GET")
 	router.HandleFunc("/create-task", handlers.CreateTask).Methods("POST")
 	router.HandleFunc("/task/{id}", handlers.GetTask).Methods("GET")
 	router.HandleFunc("/task/{id}", handlers.DeleteTask).Methods("DELETE")
