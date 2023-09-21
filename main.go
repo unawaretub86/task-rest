@@ -1,7 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/unawaretub86/task-rest/handlers"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	router := mux.NewRouter().StrictSlash(true)
+
+	router.HandleFunc("/", handlers.Ping)
+	router.HandleFunc("/task", handlers.GetTask).Methods("GET")
+	router.HandleFunc("/create-task", handlers.CreateTask).Methods("POST")
+	router.HandleFunc("/task/{id}", handlers.GetTask).Methods("GET")
+	router.HandleFunc("/task/{id}", handlers.DeleteTask).Methods("DELETE")
+	router.HandleFunc("/update-task/{id}", handlers.UpdateTask).Methods("PATCH")
+
+	log.Fatal(http.ListenAndServe(":3001", router))
 }
